@@ -1,0 +1,472 @@
+/* ============================================================
+   TIER 1 — primitives
+   Raw values. Never referenced directly by rules below.
+   ============================================================ */
+:root {
+  --ntu-blue: #181C62;
+  --ntu-red: #D71440;
+  --ntu-blue-tint: #EEF0F7;
+  --amber: #B25E00;
+  --green: #1B7A4B;
+
+  --ink: #1A1D24;
+  --ink-muted: #5A6070;
+  --rule: #DEE1E9;
+  --surface: #FFFFFF;
+  --surface-alt: #F7F8FB;
+
+  --font-sans: Arial, Helvetica, sans-serif;
+  --measure: 1000px;
+  --gutter: clamp(16px, 4vw, 28px);
+}
+
+/* ============================================================
+   TIER 2 — semantic roles
+   What rules actually consume.
+   ============================================================ */
+:root {
+  --color-identity: var(--ntu-blue);
+  --color-identity-hover: #0e1140;
+  --color-identity-soft: var(--ntu-blue-tint);
+  --color-text: var(--ink);
+  --color-text-muted: var(--ink-muted);
+  --color-border: var(--rule);
+  --color-bg: var(--surface-alt);
+  --color-bg-raised: var(--surface);
+  --color-on-identity: #FFFFFF;
+
+  --status-on-track: var(--green);
+  --status-at-risk: var(--amber);
+  --status-blocked: var(--ntu-red);
+
+  /* timeline "today" marker position */
+  /* --today: 20%; */
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-identity);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+.container {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter) 40px;
+}
+
+.section { padding-top: 24px; }
+
+.section__title {
+  margin: 0 0 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-identity);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+/* ============================================================
+   TYPE
+   ============================================================ */
+.eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  opacity: .85;
+  margin-bottom: 6px;
+}
+
+.subhead {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--color-text);
+}
+.subhead--muted   { color: var(--color-text-muted); }
+.subhead--identity { color: var(--color-identity); }
+
+.prose {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.note {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.list--muted { color: var(--color-text-muted); }
+
+.link {
+  color: var(--color-identity);
+  text-decoration: underline;
+}
+.link:hover { color: var(--color-identity-hover); }
+
+/* ============================================================
+   STATUS BAND
+   ============================================================ */
+.band {
+  background: var(--color-identity);
+  color: var(--color-on-identity);
+  padding: 18px var(--gutter);
+}
+
+/* Logo sits to the left of the title block, top-aligned with the eyebrow.
+   Switch align-items to center to centre it against the whole text block. */
+.band__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.band__logo {
+  height: 120px;
+  flex: none;      /* never let the crest squash */
+  margin: auto 0;  /* vertically centre the crest in the band */
+}
+
+.band__text { min-width: 0; } /* lets the long title wrap instead of overflowing */
+
+.band__title {
+  margin: 0 0 5px;
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.band__lede {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-style: italic;
+  text-decoration:underline;
+  line-height: 1.4;
+  opacity: .92;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  row-gap: 10px;
+  font-size: 13px;
+}
+
+.meta__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  opacity: .8;
+  margin-bottom: 5px;
+}
+
+.meta__value { font-weight: 700; }
+
+.meta__detail {
+  margin-top: 6px;
+  max-width: 420px;
+}
+
+/* Solid status chip on the identity band */
+.pill {
+  display: inline-block;
+  background: var(--color-bg-raised);
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+.pill--on-track { color: var(--status-on-track); }
+.pill--at-risk  { color: var(--status-at-risk); }
+.pill--blocked  { color: var(--status-blocked); }
+
+/* ============================================================
+   CHANGELOG
+   ============================================================ */
+.changelog {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.changelog__item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.changelog__tag {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: .03em;
+}
+.changelog__tag--done    { color: var(--status-on-track); }
+.changelog__tag--wip     { color: var(--color-identity); }
+.changelog__tag--slipped { color: var(--status-blocked); }
+
+.earlier { margin-top: 12px; }
+
+.earlier__summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.earlier__body {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  padding-left: 2px;
+}
+
+/* ============================================================
+   BLOCKER CARD
+   ============================================================ */
+.card {
+  border: 1px solid var(--color-border);
+  padding: 14px 16px;
+}
+
+.card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card__text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Outlined status chip on a light surface */
+.tag {
+  flex: none;
+  background: var(--color-bg-raised);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+}
+.tag--open { color: var(--status-blocked); }
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  font-size: 12px;
+}
+
+.field__label {
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: .04em;
+  margin-bottom: 2px;
+}
+
+.empty-demo { margin-top: 14px; }
+
+.empty {
+  border: 1px dashed var(--color-border);
+  padding: 14px 16px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: var(--today);
+  top: 18px;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-text);
+}
+
+.timeline__now {
+  position: absolute;
+  left: var(--today);
+  top: 0;
+  transform: translateX(-50%);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.timeline__row {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.timeline__row:last-child { border-bottom: none; }
+
+.timeline__head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.timeline__name { font-weight: 700; }
+.timeline__date { color: var(--color-text-muted); }
+
+.bar {
+  height: 8px;
+  background: var(--color-border);
+}
+
+.bar__fill {
+  height: 100%;
+  width: var(--fill, 0);
+  background: var(--color-identity);
+}
+.bar__fill--at-risk { background: var(--status-at-risk); }
+
+/* ============================================================
+   DIAGRAM PLACEHOLDER
+   ============================================================ */
+.diagram {
+  aspect-ratio: 16 / 9;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.table-scroll { overflow-x: auto; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  min-width: 520px;
+}
+.table--wide { min-width: 560px; }
+
+.table thead tr { border-bottom: 2px solid var(--color-border); }
+
+.table th {
+  text-align: left;
+  padding: 8px 10px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--color-text-muted);
+}
+
+.table td {
+  padding: 10px;
+  vertical-align: top;
+}
+
+.table th:first-child,
+.table td:first-child { padding-left: 0; }
+
+.table th:last-child,
+.table td:last-child { padding-right: 0; }
+
+.table td:first-child { font-weight: 700; }
+
+.table tbody tr { border-bottom: 1px solid var(--color-border); }
+.table tbody tr:last-child { border-bottom: none; }
+
+.table tbody tr.is-selected { background: var(--color-identity-soft); }
+
+.cell--selected {
+  font-weight: 700;
+  color: var(--color-identity);
+}
+.cell--none { color: var(--color-text-muted); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 2px solid var(--color-border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  font-size: 12px;
+}
+
+/* ============================================================
+   REFERENCE BLOCK — review only, not part of the report
+   ============================================================ */
+.ref {
+  border-top: 2px solid var(--color-border);
+  padding: 16px var(--gutter) 32px;
+  background: var(--color-bg-raised);
+}
+
+.ref__note {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: 10px;
+}

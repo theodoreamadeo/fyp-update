@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FYP Status Report</title>
+  <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico"> -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- SECTION 1: Status band -->
+  <header class="band">
+    <div class="wrap band__inner">
+      <img src="logo.png" alt="NTU logo" class="band__logo">
+      <div class="band__text">
+        <div class="eyebrow">NTU X DSBJ: Automated AutoCAD Drafting (FYP)</div>
+        <h1 class="band__title">Development of a Text-to-Geometry Conversion Software for Automated AutoCAD Drafting</h1>
+        <h2 class="band__lede">Created by: Theodore Amadeo Argasetya Atmadja (U2320581F)</h2>
+        <div class="meta-row">
+          <div>
+            <div class="meta__label">Status</div>
+            <span class="pill pill--on-track">On Track</span>
+          </div>
+          <div>
+            <div class="meta__label">Current Phase</div>
+            <div class="meta__value">Exploration on Design and Architecture</div>
+          </div>
+          <div>
+            <div class="meta__label">Next milestone</div>
+            <div class="meta__value">Python Test Script for the AutoCAD Automation, 21 August 2026</div>
+          </div>
+          <div>
+            <div class="meta__label">Last updated</div>
+            <div class="meta__value">10 August 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- SECTION 2: Changelog -->
+    <section class="section">
+      <h2 class="section__title">What changed since last update</h2>
+      <ul class="changelog">
+        <li class="changelog__item">
+          <span class="changelog__tag changelog__tag--wip">In Progress</span>
+          <span>Reviewing existing solutions and analyzing their approaches to identify the gap between current capabilities and the project objectives.</span>
+        </li>
+        <li class="changelog__item">
+          <span class="changelog__tag changelog__tag--wip">In Progress</span>
+          <span>Exploring architectural options suited to the accessible AutoCAD API surfaces.</span>
+        </li>
+        <li class="changelog__item">
+          <span class="changelog__tag changelog__tag--wip">In Progress</span>
+          <span>Studying the AutoCAD API surfaces through the official Autodesk developer documentation.</span>
+        </li>
+        <!-- <li class="changelog__item">
+          <span class="changelog__tag changelog__tag--done">Completed</span>
+          <span>Evaluated AutoLISP, .NET, and Python COM automation interfaces</span>
+        </li>
+        <li class="changelog__item">
+          <span class="changelog__tag changelog__tag--wip">In progress</span>
+          <span>Drafting tokenizer and abstract syntax tree structure</span>
+        </li>
+        <li class="changelog__item">
+          <span class="changelog__tag changelog__tag--slipped">Slipped</span>
+          <span>Prototype geometry write-back, moved from 15 to 29 August</span>
+        </li> -->
+      </ul>
+      <!-- <details class="earlier">
+        <summary class="earlier__summary">Earlier updates (2)</summary>
+        <div class="earlier__body">
+          <div>25 July 2026 — Initial requirements gathering and literature review completed.</div>
+          <div>11 July 2026 — Project proposal approved; supervisor kickoff meeting held.</div>
+        </div>
+      </details> -->
+    </section>
+
+    <!-- SECTION 3: Blockers and decisions required -->
+    <section class="section">
+      <h2 class="section__title">Blockers and decisions required</h2>
+      <!-- <div class="card">
+        <div class="card__head">
+          <p class="card__text">Approved scope specifies deterministic command parsing; an alternative natural-language interpretation layer is under consideration.</p>
+          <span class="tag tag--open">Open</span>
+        </div>
+        <div class="fields">
+          <div>
+            <div class="field__label">Owner</div>
+            <div>Academic supervisor</div>
+          </div>
+          <div>
+            <div class="field__label">Decision needed</div>
+            <div>Confirm whether scope permits a natural-language front end</div>
+          </div>
+          <div>
+            <div class="field__label">Deadline</div>
+            <div>20 Aug 2026</div>
+          </div>
+        </div>
+      </div> -->
+      <div class="empty-demo">
+        <div class="empty">No open blockers.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Scope boundaries -->
+    <!-- <section class="section">
+      <h2 class="section__title">Scope boundaries</h2>
+      <div class="cols">
+        <div>
+          <h3 class="subhead">In scope</h3>
+          <ul class="list">
+            <li>Straight lines</li><li>Rectangles</li><li>Circles</li><li>Coordinate input</li><li>Dimension input</li><li>Batch command entry</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="subhead subhead--muted">Out of scope</h3>
+          <ul class="list list--muted">
+            <li>3D geometry</li><li>Blocks and attributes</li><li>Hatching</li><li>Dimension annotations</li><li>Layer management</li><li>Arcs and splines</li>
+          </ul>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- SECTION 5: Timeline -->
+    <section class="section">
+      <h2 class="section__title">Planned Timeline (until Presentation 2, End Oct 2026)</h2>
+      <div>
+        <div class="timeline__row">
+          <div class="timeline__head">
+            <span class="timeline__name">1. Exploration on Design and Architecture</span>
+            <span class="timeline__date">10 - 21 Aug 2026</span>
+          </div>
+        </div>
+        <div class="timeline__row">
+          <div class="timeline__head">
+            <span class="timeline__name">2. Develop Python Script Prototype v1.0 (not LLM based yet)</span>
+            <span class="timeline__date">24 Aug - 04 Sept 2026</span>
+          </div>
+        </div>
+        <div class="timeline__row">
+          <div class="timeline__head">
+            <span class="timeline__name">3. Presentation 1</span>
+            <span class="timeline__date">Mid Sept 2026</span>
+          </div>
+        </div>
+        <div class="timeline__row">
+          <div class="timeline__head">
+            <span class="timeline__name">4. Implement LLM into the Python Script Prototype (v2.0)</span>
+            <span class="timeline__date">Mid Sept to Oct 2026</span>
+          </div>
+        </div>
+        <div class="timeline__row">
+          <div class="timeline__head">
+            <span class="timeline__name">5. Presentation 2</span>
+            <span class="timeline__date">End Oct 2026</span>
+          </div>
+          <!-- <div class="bar"><div class="bar__fill" style="--fill:100%"></div></div> -->
+        </div>
+        <div class = "timeline__head" style="font-style: italic; margin-top: 10px; font-size: 12px;">
+          * All of these timelines are tentative and may be subject to change based on the progress of the project and any unforeseen challenges that may arise.
+        </div>
+        <!-- <div class="timeline__row">
+          <div class="timeline__head">
+            <span class="timeline__name">6. Integration & testing</span>
+            <span class="timeline__date">Jan – Feb 2027</span>
+          </div>
+        </div>
+        <div class="timeline__row">
+          <div class="timeline__head">
+            <span class="timeline__name">7. Final report & demo</span>
+            <span class="timeline__date">Mar – Apr 2027</span>
+          </div> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Workflow -->
+    <section class="section">
+      <h2 class="section__title">Workflow</h2>
+      <div class="diagram">
+        <img src="workflow.png" alt="Workflow diagram">
+      </div>
+      <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* These are the initial prototype workflow. It may be subject to change based on the progress of the project and any unforeseen challenges that may arise.</p>
+    </section>
+
+    <!-- SECTION 7: Technology decision record -->
+    <!-- <section class="section">
+      <h2 class="section__title">Technology decision record</h2>
+      <div class="table-scroll">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Capability</th>
+              <th>Tradeoff</th>
+              <th>Selected</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AutoLISP</td>
+              <td>Native to AutoCAD, fast prototyping, no external dependencies</td>
+              <td>Legacy syntax, hard to unit test outside the drawing editor</td>
+              <td class="cell--none">—</td>
+            </tr>
+            <tr class="is-selected">
+              <td>.NET (AutoCAD API)</td>
+              <td>Full access to AutoCAD's object model, strongly typed, testable outside the editor</td>
+              <td>Steeper learning curve, requires the AutoCAD SDK and Visual Studio</td>
+              <td class="cell--selected">Selected</td>
+            </tr>
+            <tr>
+              <td>Python COM automation</td>
+              <td>Fast to script, familiar language for parsing and tokenizing</td>
+              <td>Slower at runtime, COM interface is incomplete and version-fragile</td>
+              <td class="cell--none">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section> -->
+
+    <!-- SECTION 8: Validation plan -->
+    <!-- <section class="section">
+      <h2 class="section__title">Validation plan</h2>
+      <div class="table-scroll">
+        <table class="table table--wide">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Measurement method</th>
+              <th>Baseline</th>
+              <th>Target</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Command parse accuracy</td>
+              <td>Automated grammar test suite, 100 sample commands</td>
+              <td>N/A — no parser yet</td>
+              <td>≥95% parsed without error</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Time to draw a primitive</td>
+              <td>Manual timing, 20 trials, vs. current manual workflow</td>
+              <td>~45s (manual input)</td>
+              <td>&lt;10s via command input</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>AutoCAD write-back success rate</td>
+              <td>Integration test harness against the COM/API layer</td>
+              <td>N/A — no write-back yet</td>
+              <td>≥99% successful writes</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section> -->
+
+    <!-- SECTION 9: Deliverables / relevance -->
+    <!-- <section class="section">
+      <div class="cols">
+        <div>
+          <h3 class="subhead subhead--identity">Academic deliverables</h3>
+          <p class="prose">A final report documenting requirements, grammar design, and system architecture; a working prototype demonstrating text-to-geometry conversion for lines, rectangles, and circles; and a recorded demonstration for the final year project examination panel.</p>
+        </div>
+        <div>
+          <h3 class="subhead subhead--identity">Relevance to operations</h3>
+          <p class="prose">Reduces manual drafting time for routine layout geometry — lines, rectangles, and circles entered as text or coordinates instead of drawn by hand — as a lightweight input method for site drawings, not a full CAD replacement.</p>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- SECTION 10: Footer -->
+    <footer class="footer">
+      <!-- <a href="#" class="link">Repository</a> -->
+    </footer>
+  </main>
+</body>
+</html>
