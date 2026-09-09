@@ -24,15 +24,15 @@
           </div>
           <div>
             <div class="meta__label">Current Phase</div>
-            <div class="meta__value">Exploration on Design and Architecture</div>
+            <div class="meta__value">Develop MCP Prototype</div>
           </div>
           <div>
             <div class="meta__label">Next milestone</div>
-            <div class="meta__value">Python Test Script for the AutoCAD Automation, 21 August 2026</div>
+            <div class="meta__value">Presentation 1, 11 September 2026</div>
           </div>
           <div>
             <div class="meta__label">Last updated</div>
-            <div class="meta__value">10 August 2026</div>
+            <div class="meta__value">9 September 2026</div>
           </div>
         </div>
       </div>
@@ -46,16 +46,20 @@
       <h2 class="section__title">What changed since last update</h2>
       <ul class="changelog">
         <li class="changelog__item">
-          <span class="changelog__tag changelog__tag--wip">In Progress</span>
-          <span>Reviewing existing solutions and analyzing their approaches to identify the gap between current capabilities and the project objectives.</span>
+          <span class="changelog__tag changelog__tag--done">Completed</span>
+          <span>Built a working Python prototype (autocad-mcp-server) that connects to AutoCAD via COM automation and exposes drawing operations as MCP tools.</span>
+        </li>
+        <li class="changelog__item">
+          <span class="changelog__tag changelog__tag--done">Completed</span>
+          <span>Connected the AutoCAD MCP server to Claude Desktop and ran it via server.py, confirming the end-to-end MCP integration works.</span>
+        </li>
+        <li class="changelog__item">
+          <span class="changelog__tag changelog__tag--done">Completed</span>
+          <span>Implemented core geometry creation tools (line, circle, rectangle, text, and arc) with configurable color and thickness.</span>
         </li>
         <li class="changelog__item">
           <span class="changelog__tag changelog__tag--wip">In Progress</span>
-          <span>Exploring architectural options suited to the accessible AutoCAD API surfaces.</span>
-        </li>
-        <li class="changelog__item">
-          <span class="changelog__tag changelog__tag--wip">In Progress</span>
-          <span>Studying the AutoCAD API surfaces through the official Autodesk developer documentation.</span>
+          <span>Validating entity creation reliability and COM timing/timeout behavior through iterative test scripts.</span>
         </li>
         <!-- <li class="changelog__item">
           <span class="changelog__tag changelog__tag--done">Completed</span>
@@ -70,13 +74,14 @@
           <span>Prototype geometry write-back, moved from 15 to 29 August</span>
         </li> -->
       </ul>
-      <!-- <details class="earlier">
-        <summary class="earlier__summary">Earlier updates (2)</summary>
+      <details class="earlier">
+        <summary class="earlier__summary">Earlier updates (3)</summary>
         <div class="earlier__body">
+          <div>10 August 2026 — Reviewed existing solutions, explored architectural options, and studied the AutoCAD API surfaces via the official Autodesk developer documentation.</div>
           <div>25 July 2026 — Initial requirements gathering and literature review completed.</div>
           <div>11 July 2026 — Project proposal approved; supervisor kickoff meeting held.</div>
         </div>
-      </details> -->
+      </details>
     </section>
 
     <!-- SECTION 3: Blockers and decisions required -->
@@ -127,7 +132,7 @@
     </section> -->
 
     <!-- SECTION 5: Timeline -->
-    <section class="section">
+    <!-- <section class="section">
       <h2 class="section__title">Planned Timeline (until Presentation 2, End Oct 2026)</h2>
       <div>
         <div class="timeline__row">
@@ -158,12 +163,12 @@
           <div class="timeline__head">
             <span class="timeline__name">5. Presentation 2</span>
             <span class="timeline__date">End Oct 2026</span>
-          </div>
+          </div> -->
           <!-- <div class="bar"><div class="bar__fill" style="--fill:100%"></div></div> -->
-        </div>
-        <div class = "timeline__head" style="font-style: italic; margin-top: 10px; font-size: 12px;">
+        <!-- </div>   -->
+        <!-- <div class = "timeline__head" style="font-style: italic; margin-top: 10px; font-size: 12px;">
           * All of these timelines are tentative and may be subject to change based on the progress of the project and any unforeseen challenges that may arise.
-        </div>
+        </div> -->
         <!-- <div class="timeline__row">
           <div class="timeline__head">
             <span class="timeline__name">6. Integration & testing</span>
@@ -181,14 +186,95 @@
 
     <!-- SECTION 6: Workflow -->
     <section class="section">
-      <h2 class="section__title">Workflow</h2>
+      <h2 class="section__title">Project Timeline</h2>
       <div class="diagram">
-        <img src="workflow.png" alt="Workflow diagram">
+        <img src="gantt-chart.png" alt="Gantt chart" style="width:105%; height:auto; display:block;">
       </div>
       <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* These are the initial prototype workflow. It may be subject to change based on the progress of the project and any unforeseen challenges that may arise.</p>
     </section>
 
-    <!-- SECTION 7: Technology decision record -->
+    <!-- SECTION 7: Current architecture -->
+    <section class="section">
+      <h2 class="section__title">Current architecture</h2>
+      <div style="border:1px solid var(--color-border); background:var(--color-bg-raised); padding:16px; margin-bottom:14px; overflow-x:auto;">
+        <svg viewBox="0 0 1000 130" role="img" aria-labelledby="arch-flow-title" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block; font-family:var(--font-sans);">
+          <title id="arch-flow-title">Architecture flow from Claude Desktop to AutoCAD</title>
+          <defs>
+            <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--color-identity)"></path>
+            </marker>
+          </defs>
+          <g stroke="var(--color-identity)" stroke-width="1.5" marker-end="url(#arch-arrow)">
+            <line x1="177" y1="55" x2="223" y2="55"></line>
+            <line x1="377" y1="55" x2="423" y2="55"></line>
+            <line x1="577" y1="55" x2="623" y2="55"></line>
+            <line x1="777" y1="55" x2="823" y2="55"></line>
+          </g>
+          <g font-size="12" text-anchor="middle">
+            <rect x="25" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
+            <text x="100" y="50" font-weight="700" fill="var(--color-text)">Claude Desktop</text>
+            <text x="100" y="66" font-size="9" fill="var(--color-text-muted)">Client</text>
+
+            <rect x="225" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
+            <text x="300" y="50" font-weight="700" fill="var(--color-text)">MCP (stdio)</text>
+            <text x="300" y="66" font-size="9" fill="var(--color-text-muted)">Transport</text>
+
+            <rect x="425" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
+            <text x="500" y="50" font-weight="700" fill="var(--color-text)">server.py</text>
+            <text x="500" y="66" font-size="9" fill="var(--color-text-muted)">MCP server</text>
+
+            <rect x="625" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
+            <text x="700" y="50" font-weight="700" fill="var(--color-text)">COM bridge</text>
+            <text x="700" y="66" font-size="9" fill="var(--color-text-muted)">pywin32 (Automation)</text>
+
+            <rect x="825" y="20" width="150" height="70" rx="4" fill="var(--color-identity-soft)" stroke="var(--color-identity)"></rect>
+            <text x="900" y="50" font-weight="700" fill="var(--color-identity)">AutoCAD</text>
+            <text x="900" y="66" font-size="9" fill="var(--color-text-muted)">Target application</text>
+          </g>
+        </svg>
+      </div>
+      <div class="table-scroll">
+        <table class="table table--wide">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Component</th>
+              <th>Responsibility</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Client</td>
+              <td>Claude Desktop</td>
+              <td>Sends natural-language drafting requests and renders MCP tool results back to the user.</td>
+            </tr>
+            <tr>
+              <td>Transport</td>
+              <td>MCP (stdio)</td>
+              <td>Exchanges tool definitions and JSON tool calls/results between Claude Desktop and the Python server over standard input/output.</td>
+            </tr>
+            <tr>
+              <td>Server</td>
+              <td>autocad_mcp/server.py</td>
+              <td>Registers the MCP tool set (drawing info, entity queries, structure/geometry creation, layer management, deletion, undo, zoom) and routes each call to its handler.</td>
+            </tr>
+            <tr>
+              <td>Automation</td>
+              <td>pywin32 COM bridge</td>
+              <td>Marshals coordinates into VARIANT arrays and drives AutoCAD's COM object model (AddLine, AddCircle, AddText, AddArc, Layers), with retry/delay handling for COM timing issues.</td>
+            </tr>
+            <tr>
+              <td>Target application</td>
+              <td>AutoCAD</td>
+              <td>Executes the drawing operations and renders the resulting geometry in the active drawing.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* This reflects the current prototype (server.py, not LLM-based). It is expected to evolve once the natural-language layer (v2.0) is introduced.</p> -->
+    </section>
+
+    <!-- SECTION 8: Technology decision record -->
     <!-- <section class="section">
       <h2 class="section__title">Technology decision record</h2>
       <div class="table-scroll">
@@ -225,7 +311,7 @@
       </div>
     </section> -->
 
-    <!-- SECTION 8: Validation plan -->
+    <!-- SECTION 9: Validation plan -->
     <!-- <section class="section">
       <h2 class="section__title">Validation plan</h2>
       <div class="table-scroll">
@@ -266,7 +352,7 @@
       </div>
     </section> -->
 
-    <!-- SECTION 9: Deliverables / relevance -->
+    <!-- SECTION 10: Deliverables / relevance -->
     <!-- <section class="section">
       <div class="cols">
         <div>
@@ -280,7 +366,7 @@
       </div>
     </section> -->
 
-    <!-- SECTION 10: Footer -->
+    <!-- SECTION 11: Footer -->
     <footer class="footer">
       <!-- <a href="#" class="link">Repository</a> -->
     </footer>
