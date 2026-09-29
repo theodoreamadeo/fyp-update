@@ -24,15 +24,15 @@
           </div>
           <div>
             <div class="meta__label">Current Phase</div>
-            <div class="meta__value">Develop MCP Prototype</div>
+            <div class="meta__value">Migrate to C#/.NET App Architecture</div>
           </div>
           <div>
             <div class="meta__label">Next milestone</div>
-            <div class="meta__value">Presentation 1, 11 September 2026</div>
+            <div class="meta__value">Presentation 2, End of October 2026</div>
           </div>
           <div>
             <div class="meta__label">Last updated</div>
-            <div class="meta__value">9 September 2026</div>
+            <div class="meta__value">29 September 2026</div>
           </div>
         </div>
       </div>
@@ -47,19 +47,15 @@
       <ul class="changelog">
         <li class="changelog__item">
           <span class="changelog__tag changelog__tag--done">Completed</span>
-          <span>Built a working Python prototype (autocad-mcp-server) that connects to AutoCAD via COM automation and exposes drawing operations as MCP tools.</span>
+          <span>Decided to move from the MCP-based prototype to a standalone desktop application: C# (.NET) backend, Vite + React (TypeScript, Tailwind CSS) frontend, packaged as a single Windows .exe via Electron.</span>
         </li>
         <li class="changelog__item">
           <span class="changelog__tag changelog__tag--done">Completed</span>
-          <span>Connected the AutoCAD MCP server to Claude Desktop and ran it via server.py, confirming the end-to-end MCP integration works.</span>
+          <span>Selected AutoCAD's native .NET plugin API (running in-process inside AutoCAD) as the AutoCAD-integration layer, replacing COM automation. It is AutoCAD's own native automation interface, avoiding the external-process COM marshaling overhead and timing unreliability the previous prototype had to work around.</span>
         </li>
         <li class="changelog__item">
           <span class="changelog__tag changelog__tag--done">Completed</span>
-          <span>Implemented core geometry creation tools (line, circle, rectangle, text, and arc) with configurable color and thickness.</span>
-        </li>
-        <li class="changelog__item">
-          <span class="changelog__tag changelog__tag--wip">In Progress</span>
-          <span>Validating entity creation reliability and COM timing/timeout behavior through iterative test scripts.</span>
+          <span>Built and validated a minimal .NET10 AutoCAD plugin against AutoCAD 2027: loaded in-process via NETLOAD and successfully created geometry through a native database Transaction, confirming the new integration approach works end-to-end.</span>
         </li>
         <!-- <li class="changelog__item">
           <span class="changelog__tag changelog__tag--done">Completed</span>
@@ -75,8 +71,9 @@
         </li> -->
       </ul>
       <details class="earlier">
-        <summary class="earlier__summary">Earlier updates (3)</summary>
+        <summary class="earlier__summary">Earlier updates (4)</summary>
         <div class="earlier__body">
+          <div>9 September 2026 — Built and validated a working Python prototype (autocad-mcp-server) connecting to AutoCAD via COM automation, exposing MCP tools for geometry creation (line, circle, rectangle, text, arc) with color/thickness options, and confirmed end-to-end integration with Claude Desktop.</div>
           <div>10 August 2026 — Reviewed existing solutions, explored architectural options, and studied the AutoCAD API surfaces via the official Autodesk developer documentation.</div>
           <div>25 July 2026 — Initial requirements gathering and literature review completed.</div>
           <div>11 July 2026 — Project proposal approved; supervisor kickoff meeting held.</div>
@@ -185,12 +182,61 @@
     </section>
 
     <!-- SECTION 6: Workflow -->
-    <section class="section">
+    <!-- <section class="section">
       <h2 class="section__title">Project Timeline</h2>
       <div class="diagram">
         <img src="gantt-chart.png" alt="Gantt chart" style="width:105%; height:auto; display:block;">
       </div>
       <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* These are the initial prototype workflow. It may be subject to change based on the progress of the project and any unforeseen challenges that may arise.</p>
+    </section> -->
+
+    <!-- SECTION 7B: COM automation vs .NET plugin comparison -->
+    <section class="section">
+      <h2 class="section__title">Why .NET plugin over COM automation</h2>
+      <div class="table-scroll">
+        <table class="table table--wide">
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>COM automation (previous)</th>
+              <th>.NET plugin (current)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Execution model</td>
+              <td class="cell--none">External process drives AutoCAD over COM</td>
+              <td class="cell--selected">Runs in-process, loaded directly inside AutoCAD</td>
+            </tr>
+            <tr>
+              <td>Reliability</td>
+              <td class="cell--none">Marshaling/timing issues; needed manual retry delays around every call</td>
+              <td class="cell--selected">No marshaling boundary; consistent, predictable behavior</td>
+            </tr>
+            <tr>
+              <td>API access</td>
+              <td class="cell--none">Limited automation surface</td>
+              <td class="cell--selected">Full native object model (transactions, custom entities, reactors)</td>
+            </tr>
+            <tr>
+              <td>Undo / transactions</td>
+              <td class="cell--none">Manual (explicit delete + regen calls)</td>
+              <td class="cell--selected">Native <code>Transaction</code>, integrated with AutoCAD's own undo stack</td>
+            </tr>
+            <tr>
+              <td>Language interop</td>
+              <td class="cell--none">Python (pywin32), dynamically dispatched</td>
+              <td class="cell--selected">C#, strongly typed and checked at compile time</td>
+            </tr>
+            <tr>
+              <td>Setup complexity</td>
+              <td class="cell--selected">Simple — just attach to a running AutoCAD instance</td>
+              <td class="cell--none">Requires plugin packaging, NETLOAD/autoload, and trusted-path configuration</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* .NET plugin wins on reliability, API access, and interop safety — the dimensions that matter most for correctness. COM automation only wins on developer setup simplicity, which is a one-time cost.</p>
     </section>
 
     <!-- SECTION 7: Current architecture -->
@@ -198,7 +244,7 @@
       <h2 class="section__title">Current architecture</h2>
       <div style="border:1px solid var(--color-border); background:var(--color-bg-raised); padding:16px; margin-bottom:14px; overflow-x:auto;">
         <svg viewBox="0 0 1000 130" role="img" aria-labelledby="arch-flow-title" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block; font-family:var(--font-sans);">
-          <title id="arch-flow-title">Architecture flow from Claude Desktop to AutoCAD</title>
+          <title id="arch-flow-title">Architecture flow from the Electron desktop app to AutoCAD</title>
           <defs>
             <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="var(--color-identity)"></path>
@@ -212,24 +258,24 @@
           </g>
           <g font-size="12" text-anchor="middle">
             <rect x="25" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
-            <text x="100" y="50" font-weight="700" fill="var(--color-text)">Claude Desktop</text>
-            <text x="100" y="66" font-size="9" fill="var(--color-text-muted)">Client</text>
+            <text x="100" y="50" font-weight="700" fill="var(--color-text)">React UI</text>
+            <text x="100" y="66" font-size="9" fill="var(--color-text-muted)">Client (Electron renderer)</text>
 
             <rect x="225" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
-            <text x="300" y="50" font-weight="700" fill="var(--color-text)">MCP (stdio)</text>
-            <text x="300" y="66" font-size="9" fill="var(--color-text-muted)">Transport</text>
+            <text x="300" y="50" font-weight="700" fill="var(--color-text)">WebSocket</text>
+            <text x="300" y="66" font-size="9" fill="var(--color-text-muted)">Transport (localhost)</text>
 
             <rect x="425" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
-            <text x="500" y="50" font-weight="700" fill="var(--color-text)">server.py</text>
-            <text x="500" y="66" font-size="9" fill="var(--color-text-muted)">MCP server</text>
+            <text x="500" y="50" font-weight="700" fill="var(--color-text)">C# Backend</text>
+            <text x="500" y="66" font-size="9" fill="var(--color-text-muted)">Orchestration + LLM loop</text>
 
             <rect x="625" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
-            <text x="700" y="50" font-weight="700" fill="var(--color-text)">COM bridge</text>
-            <text x="700" y="66" font-size="9" fill="var(--color-text-muted)">pywin32 (Automation)</text>
+            <text x="700" y="50" font-weight="700" fill="var(--color-text)">Named Pipe</text>
+            <text x="700" y="66" font-size="9" fill="var(--color-text-muted)">IPC transport</text>
 
             <rect x="825" y="20" width="150" height="70" rx="4" fill="var(--color-identity-soft)" stroke="var(--color-identity)"></rect>
             <text x="900" y="50" font-weight="700" fill="var(--color-identity)">AutoCAD</text>
-            <text x="900" y="66" font-size="9" fill="var(--color-text-muted)">Target application</text>
+            <text x="900" y="66" font-size="9" fill="var(--color-text-muted)">.NET plugin (in-process)</text>
           </g>
         </svg>
       </div>
@@ -245,37 +291,37 @@
           <tbody>
             <tr>
               <td>Client</td>
-              <td>Claude Desktop</td>
-              <td>Sends natural-language drafting requests and renders MCP tool results back to the user.</td>
+              <td>React (Vite, TypeScript, Tailwind) inside Electron</td>
+              <td>Renders the chat UI, sends natural-language drafting requests, and displays tool-execution status and AI responses.</td>
             </tr>
             <tr>
               <td>Transport</td>
-              <td>MCP (stdio)</td>
-              <td>Exchanges tool definitions and JSON tool calls/results between Claude Desktop and the Python server over standard input/output.</td>
+              <td>WebSocket (localhost)</td>
+              <td>Streams messages between the Electron renderer and the C# backend, which Electron spawns as a sidecar process.</td>
             </tr>
             <tr>
-              <td>Server</td>
-              <td>autocad_mcp/server.py</td>
-              <td>Registers the MCP tool set (drawing info, entity queries, structure/geometry creation, layer management, deletion, undo, zoom) and routes each call to its handler.</td>
+              <td>Backend</td>
+              <td>C# / ASP.NET Core</td>
+              <td>Runs the LLM tool-use loop, maps each tool call to a drawing command, and forwards it to the AutoCAD plugin.</td>
             </tr>
             <tr>
-              <td>Automation</td>
-              <td>pywin32 COM bridge</td>
-              <td>Marshals coordinates into VARIANT arrays and drives AutoCAD's COM object model (AddLine, AddCircle, AddText, AddArc, Layers), with retry/delay handling for COM timing issues.</td>
+              <td>IPC</td>
+              <td>Named pipe</td>
+              <td>Carries serialized tool calls and results between the backend process and the plugin running inside AutoCAD.</td>
             </tr>
             <tr>
-              <td>Target application</td>
-              <td>AutoCAD</td>
-              <td>Executes the drawing operations and renders the resulting geometry in the active drawing.</td>
+              <td>AutoCAD integration</td>
+              <td>.NET plugin (in-process)</td>
+              <td>Executes drawing operations directly inside AutoCAD via its native .NET API and database Transactions — chosen because it is AutoCAD's own native automation interface, avoiding the external-process COM marshaling and timing unreliability the previous COM-based prototype had to work around.</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <!-- <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* This reflects the current prototype (server.py, not LLM-based). It is expected to evolve once the natural-language layer (v2.0) is introduced.</p> -->
+      <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* This reflects the newly decided target architecture. The .NET plugin (in-process AutoCAD integration) has been prototyped and validated end-to-end; the C# backend, WebSocket transport, and Electron/React frontend are designed but not yet implemented.</p>
     </section>
 
     <!-- SECTION 8: Demo video -->
-    <section class="section">
+    <!-- <section class="section">
       <h2 class="section__title">Demo Video</h2>
       <div class="diagram" style="aspect-ratio:16/9; padding:0; overflow:hidden;">
         <video controls preload="metadata" style="width:100%; height:100%; display:block; background:#000;">
@@ -284,7 +330,7 @@
         </video>
       </div>
       <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* Recorded walkthrough of the current prototype: connecting Claude Desktop to the AutoCAD MCP server and creating geometry via server.py.</p>
-    </section>
+    </section> -->
 
     <!-- SECTION 9: Technology decision record -->
     <!-- <section class="section">
