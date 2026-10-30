@@ -24,15 +24,15 @@
           </div>
           <div>
             <div class="meta__label">Current Phase</div>
-            <div class="meta__value">Migrate to C#/.NET App Architecture</div>
+            <div class="meta__value">C#/.NET prototype: model-to-AutoCAD tool workflow</div>
           </div>
           <div>
             <div class="meta__label">Next milestone</div>
-            <div class="meta__value">Presentation 2, End of October 2026</div>
+            <div class="meta__value">Presentation 2, end of October 2026</div>
           </div>
           <div>
             <div class="meta__label">Last updated</div>
-            <div class="meta__value">29 September 2026</div>
+            <div class="meta__value">30 October 2026</div>
           </div>
         </div>
       </div>
@@ -47,32 +47,29 @@
       <ul class="changelog">
         <li class="changelog__item">
           <span class="changelog__tag changelog__tag--done">Completed</span>
-          <span>Decided to move from the MCP-based prototype to a standalone desktop application: C# (.NET) backend, Vite + React (TypeScript, Tailwind CSS) frontend, packaged as a single Windows .exe via Electron.</span>
+          <span>Implemented a .NET 10 console chat harness with in-memory conversation history and an Messages tool-use loop (using Claude Haiku 5.5 model).</span>
         </li>
         <li class="changelog__item">
           <span class="changelog__tag changelog__tag--done">Completed</span>
-          <span>Selected AutoCAD's native .NET plugin API (running in-process inside AutoCAD) as the AutoCAD-integration layer, replacing COM automation. It is AutoCAD's own native automation interface, avoiding the external-process COM marshaling overhead and timing unreliability the previous prototype had to work around.</span>
+          <span>Connected the console harness to the in-process AutoCAD plugin over a local named pipe using newline-delimited JSON. The plugin dispatches drawing work on AutoCAD's synchronization context and locks the active document.</span>
         </li>
         <li class="changelog__item">
           <span class="changelog__tag changelog__tag--done">Completed</span>
-          <span>Built and validated a minimal .NET10 AutoCAD plugin against AutoCAD 2027: loaded in-process via NETLOAD and successfully created geometry through a native database Transaction, confirming the new integration approach works end-to-end.</span>
-        </li>
-        <!-- <li class="changelog__item">
-          <span class="changelog__tag changelog__tag--done">Completed</span>
-          <span>Evaluated AutoLISP, .NET, and Python COM automation interfaces</span>
+          <span>Implemented the tool path from the model schema through IPC and plugin dispatch to a Model Space database Transaction. Successful calls return the created entity handle and endpoints.</span>
         </li>
         <li class="changelog__item">
-          <span class="changelog__tag changelog__tag--wip">In progress</span>
-          <span>Drafting tokenizer and abstract syntax tree structure</span>
+          <span class="changelog__tag changelog__tag--wip">Planned</span>
+          <span>Finalizing the implementation of the other drawing tools (circle, rectangle, text, arc) and integrating them into the existing tool-use framework.</span>
         </li>
         <li class="changelog__item">
-          <span class="changelog__tag changelog__tag--slipped">Slipped</span>
-          <span>Prototype geometry write-back, moved from 15 to 29 August</span>
-        </li> -->
+          <span class="changelog__tag changelog__tag--wip">Planned</span>
+          <span>The longer-term Electron/React desktop client, localhost WebSocket transport, and ASP.NET Core service are not present in the current code yet.</span>
+        </li>
       </ul>
       <details class="earlier">
-        <summary class="earlier__summary">Earlier updates (4)</summary>
+        <summary class="earlier__summary">Earlier updates (5)</summary>
         <div class="earlier__body">
+          <div>29 September 2026 - Chose the standalone Electron/React desktop application as the target and selected the in-process AutoCAD .NET plugin for drawing integration.</div>
           <div>9 September 2026 — Built and validated a working Python prototype (autocad-mcp-server) connecting to AutoCAD via COM automation, exposing MCP tools for geometry creation (line, circle, rectangle, text, arc) with color/thickness options, and confirmed end-to-end integration with Claude Desktop.</div>
           <div>10 August 2026 — Reviewed existing solutions, explored architectural options, and studied the AutoCAD API surfaces via the official Autodesk developer documentation.</div>
           <div>25 July 2026 — Initial requirements gathering and literature review completed.</div>
@@ -108,177 +105,59 @@
         <div class="empty">No open blockers.</div>
       </div>
     </section>
-
-    <!-- SECTION 4: Scope boundaries -->
-    <!-- <section class="section">
-      <h2 class="section__title">Scope boundaries</h2>
-      <div class="cols">
-        <div>
-          <h3 class="subhead">In scope</h3>
-          <ul class="list">
-            <li>Straight lines</li><li>Rectangles</li><li>Circles</li><li>Coordinate input</li><li>Dimension input</li><li>Batch command entry</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="subhead subhead--muted">Out of scope</h3>
-          <ul class="list list--muted">
-            <li>3D geometry</li><li>Blocks and attributes</li><li>Hatching</li><li>Dimension annotations</li><li>Layer management</li><li>Arcs and splines</li>
-          </ul>
-        </div>
-      </div>
-    </section> -->
-
-    <!-- SECTION 5: Timeline -->
-    <!-- <section class="section">
-      <h2 class="section__title">Planned Timeline (until Presentation 2, End Oct 2026)</h2>
-      <div>
-        <div class="timeline__row">
-          <div class="timeline__head">
-            <span class="timeline__name">1. Exploration on Design and Architecture</span>
-            <span class="timeline__date">10 - 21 Aug 2026</span>
-          </div>
-        </div>
-        <div class="timeline__row">
-          <div class="timeline__head">
-            <span class="timeline__name">2. Develop Python Script Prototype v1.0 (not LLM based yet)</span>
-            <span class="timeline__date">24 Aug - 04 Sept 2026</span>
-          </div>
-        </div>
-        <div class="timeline__row">
-          <div class="timeline__head">
-            <span class="timeline__name">3. Presentation 1</span>
-            <span class="timeline__date">Mid Sept 2026</span>
-          </div>
-        </div>
-        <div class="timeline__row">
-          <div class="timeline__head">
-            <span class="timeline__name">4. Implement LLM into the Python Script Prototype (v2.0)</span>
-            <span class="timeline__date">Mid Sept to Oct 2026</span>
-          </div>
-        </div>
-        <div class="timeline__row">
-          <div class="timeline__head">
-            <span class="timeline__name">5. Presentation 2</span>
-            <span class="timeline__date">End Oct 2026</span>
-          </div> -->
-          <!-- <div class="bar"><div class="bar__fill" style="--fill:100%"></div></div> -->
-        <!-- </div>   -->
-        <!-- <div class = "timeline__head" style="font-style: italic; margin-top: 10px; font-size: 12px;">
-          * All of these timelines are tentative and may be subject to change based on the progress of the project and any unforeseen challenges that may arise.
-        </div> -->
-        <!-- <div class="timeline__row">
-          <div class="timeline__head">
-            <span class="timeline__name">6. Integration & testing</span>
-            <span class="timeline__date">Jan – Feb 2027</span>
-          </div>
-        </div>
-        <div class="timeline__row">
-          <div class="timeline__head">
-            <span class="timeline__name">7. Final report & demo</span>
-            <span class="timeline__date">Mar – Apr 2027</span>
-          </div> -->
         </div>
       </div>
     </section>
 
-    <!-- SECTION 6: Workflow -->
+    <!-- SECTION 6: Implemented tool workflow -->
     <!-- <section class="section">
-      <h2 class="section__title">Project Timeline</h2>
-      <div class="diagram">
-        <img src="gantt-chart.png" alt="Gantt chart" style="width:105%; height:auto; display:block;">
-      </div>
-      <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* These are the initial prototype workflow. It may be subject to change based on the progress of the project and any unforeseen challenges that may arise.</p>
+      <h2 class="section__title">Implemented tool workflow</h2>
+      <ol class="list">
+        <li><strong>Start both processes.</strong> Load the .NET plugin in AutoCAD with NETLOAD; it starts the named-pipe listener when AutoCAD's synchronization context is available. </li>
+        <li><strong>Send the prompt to the model.</strong> The app keeps chat history for the running session and sends the conversation plus the tool schema to Messages API. The model can return plain text or a tool-use block.</li>
+        <li><strong>Relay the tool request.</strong> For create_line, the harness sends a ToolCallRequest over the AutoCadCopilot.Tools named pipe. Each connection carries one newline-delimited JSON request and one response; the pipe client waits up to 5 seconds to connect.</li>
+        <li><strong>Execute in AutoCAD.</strong> The plugin parses the request, posts the work onto AutoCAD's synchronization context, locks the active drawing, and dispatches the tool.</li>
+        <li><strong>Commit and return the result.</strong> The line tool appends a Line to Model Space inside a database Transaction and commits it. The response includes the entity handle and endpoints, or an error. The harness sends that tool result back to the model and prints the final text response. AutoCAD execution waits up to 10 seconds.</li>
+      </ol>
+      
     </section> -->
 
-    <!-- SECTION 7B: COM automation vs .NET plugin comparison -->
+    <!-- SECTION 7: Current prototype architecture -->
     <section class="section">
-      <h2 class="section__title">Why .NET plugin over COM automation</h2>
-      <div class="table-scroll">
-        <table class="table table--wide">
-          <thead>
-            <tr>
-              <th>Aspect</th>
-              <th>COM automation (previous)</th>
-              <th>.NET plugin (current)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Execution model</td>
-              <td class="cell--none">External process drives AutoCAD over COM</td>
-              <td class="cell--selected">Runs in-process, loaded directly inside AutoCAD</td>
-            </tr>
-            <tr>
-              <td>Reliability</td>
-              <td class="cell--none">Marshaling/timing issues; needed manual retry delays around every call</td>
-              <td class="cell--selected">No marshaling boundary; consistent, predictable behavior</td>
-            </tr>
-            <tr>
-              <td>API access</td>
-              <td class="cell--none">Limited automation surface</td>
-              <td class="cell--selected">Full native object model (transactions, custom entities, reactors)</td>
-            </tr>
-            <tr>
-              <td>Undo / transactions</td>
-              <td class="cell--none">Manual (explicit delete + regen calls)</td>
-              <td class="cell--selected">Native <code>Transaction</code>, integrated with AutoCAD's own undo stack</td>
-            </tr>
-            <tr>
-              <td>Language interop</td>
-              <td class="cell--none">Python (pywin32), dynamically dispatched</td>
-              <td class="cell--selected">C#, strongly typed and checked at compile time</td>
-            </tr>
-            <tr>
-              <td>Setup complexity</td>
-              <td class="cell--selected">Simple — just attach to a running AutoCAD instance</td>
-              <td class="cell--none">Requires plugin packaging, NETLOAD/autoload, and trusted-path configuration</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* .NET plugin wins on reliability, API access, and interop safety — the dimensions that matter most for correctness. COM automation only wins on developer setup simplicity, which is a one-time cost.</p>
-    </section>
-
-    <!-- SECTION 7: Current architecture -->
-    <section class="section">
-      <h2 class="section__title">Current architecture</h2>
+      <h2 class="section__title">Current prototype architecture</h2>
       <div style="border:1px solid var(--color-border); background:var(--color-bg-raised); padding:16px; margin-bottom:14px; overflow-x:auto;">
         <svg viewBox="0 0 1000 130" role="img" aria-labelledby="arch-flow-title" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block; font-family:var(--font-sans);">
-          <title id="arch-flow-title">Architecture flow from the Electron desktop app to AutoCAD</title>
+          <title id="arch-flow-title">Current architecture from the console harness to AutoCAD</title>
           <defs>
             <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="var(--color-identity)"></path>
             </marker>
           </defs>
           <g stroke="var(--color-identity)" stroke-width="1.5" marker-end="url(#arch-arrow)">
-            <line x1="177" y1="55" x2="223" y2="55"></line>
-            <line x1="377" y1="55" x2="423" y2="55"></line>
-            <line x1="577" y1="55" x2="623" y2="55"></line>
-            <line x1="777" y1="55" x2="823" y2="55"></line>
+            <line x1="232" y1="55" x2="263" y2="55"></line>
+            <line x1="490" y1="55" x2="521" y2="55"></line>
+            <line x1="748" y1="55" x2="779" y2="55"></line>
           </g>
           <g font-size="12" text-anchor="middle">
-            <rect x="25" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
-            <text x="100" y="50" font-weight="700" fill="var(--color-text)">React UI</text>
-            <text x="100" y="66" font-size="9" fill="var(--color-text-muted)">Client (Electron renderer)</text>
+            <rect x="12" y="20" width="220" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
+            <text x="122" y="48" font-weight="700" fill="var(--color-text)">C# Console Harness</text>
+            <text x="122" y="66" font-size="12" fill="var(--color-text-muted)">Prompt, history, tool loop</text>
 
-            <rect x="225" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
-            <text x="300" y="50" font-weight="700" fill="var(--color-text)">WebSocket</text>
-            <text x="300" y="66" font-size="9" fill="var(--color-text-muted)">Transport (localhost)</text>
+            <rect x="270" y="20" width="220" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
+            <text x="380" y="48" font-weight="700" fill="var(--color-text)">Messages API</text>
+            <text x="380" y="66" font-size="12" fill="var(--color-text-muted)">Text response or tool-use block</text>
 
-            <rect x="425" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
-            <text x="500" y="50" font-weight="700" fill="var(--color-text)">C# Backend</text>
-            <text x="500" y="66" font-size="9" fill="var(--color-text-muted)">Orchestration + LLM loop</text>
+            <rect x="528" y="20" width="220" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
+            <text x="638" y="48" font-weight="700" fill="var(--color-text)">Named Pipe IPC</text>
+            <text x="638" y="66" font-size="12" fill="var(--color-text-muted)">Local newline-delimited JSON</text>
 
-            <rect x="625" y="20" width="150" height="70" rx="4" fill="var(--color-bg-raised)" stroke="var(--color-border)"></rect>
-            <text x="700" y="50" font-weight="700" fill="var(--color-text)">Named Pipe</text>
-            <text x="700" y="66" font-size="9" fill="var(--color-text-muted)">IPC transport</text>
-
-            <rect x="825" y="20" width="150" height="70" rx="4" fill="var(--color-identity-soft)" stroke="var(--color-identity)"></rect>
-            <text x="900" y="50" font-weight="700" fill="var(--color-identity)">AutoCAD</text>
-            <text x="900" y="66" font-size="9" fill="var(--color-text-muted)">.NET plugin (in-process)</text>
+            <rect x="786" y="20" width="202" height="70" rx="4" fill="var(--color-identity-soft)" stroke="var(--color-identity)"></rect>
+            <text x="887" y="48" font-weight="700" fill="var(--color-identity)">AutoCAD .NET Plugin</text>
+            <text x="887" y="66" font-size="12" fill="var(--color-text-muted)">Dispatch and drawing transaction</text>
           </g>
         </svg>
       </div>
+      <p class="prose" style="margin-bottom:10px;">Anthropic returns a tool-use block to the console harness. The harness relays the tool request to the plugin and sends the result back to the model.</p>
       <div class="table-scroll">
         <table class="table table--wide">
           <thead>
@@ -290,38 +169,71 @@
           </thead>
           <tbody>
             <tr>
-              <td>Client</td>
-              <td>React (Vite, TypeScript, Tailwind) inside Electron</td>
-              <td>Renders the chat UI, sends natural-language drafting requests, and displays tool-execution status and AI responses.</td>
+              <td>Orchestration</td>
+              <td>.NET 10 console executable</td>
+              <td>Reads prompts, keeps in-memory session history, builds the tool catalog, and runs the model/tool loop. Configuration uses ANTHROPIC_API_KEY and optional ANTHROPIC_MODEL.</td>
             </tr>
             <tr>
-              <td>Transport</td>
-              <td>WebSocket (localhost)</td>
-              <td>Streams messages between the Electron renderer and the C# backend, which Electron spawns as a sidecar process.</td>
-            </tr>
-            <tr>
-              <td>Backend</td>
-              <td>C# / ASP.NET Core</td>
-              <td>Runs the LLM tool-use loop, maps each tool call to a drawing command, and forwards it to the AutoCAD plugin.</td>
+              <td>Model</td>
+              <td>Anthropic Messages API</td>
+              <td>Receives the conversation and tool schemas; returns assistant text or a tool-use request.</td>
             </tr>
             <tr>
               <td>IPC</td>
-              <td>Named pipe</td>
-              <td>Carries serialized tool calls and results between the backend process and the plugin running inside AutoCAD.</td>
+              <td>Named pipe: AutoCadCopilot.Tools</td>
+              <td>Carries one newline-delimited JSON request and response per connection between the console process and AutoCAD plugin.</td>
             </tr>
             <tr>
               <td>AutoCAD integration</td>
-              <td>.NET plugin (in-process)</td>
-              <td>Executes drawing operations directly inside AutoCAD via its native .NET API and database Transactions — chosen because it is AutoCAD's own native automation interface, avoiding the external-process COM marshaling and timing unreliability the previous COM-based prototype had to work around.</td>
+              <td>.NET plugin loaded with NETLOAD</td>
+              <td>Hosts the pipe listener, dispatches requests on AutoCAD's synchronization context, and locks the active document before database operations.</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* This reflects the newly decided target architecture. The .NET plugin (in-process AutoCAD integration) has been prototyped and validated end-to-end; the C# backend, WebSocket transport, and Electron/React frontend are designed but not yet implemented.</p>
+      <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">Current code is a terminal prototype, not an ASP.NET Core service. The Electron/React desktop client and localhost WebSocket transport remain in the planned target architecture.</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section__title">Architecture Diagram</h2>
+      <div class="diagram" style="aspect-ratio:16/9; padding:0; overflow:hidden;">
+        <img src="architecture.jpg" alt="Proposed architecture showing a desktop client, web app tier, AI services, and Supabase with PostgreSQL" style="width:100%; height:100%; display:block; object-fit:contain;">
+      </div>
+      <div class="cols">
+        <div>
+          <h3 class="subhead">Client and application tier</h3>
+          <p class="prose">The desktop client is the user's entry point. In the proposed app tier, the front end uses Next.js, React, TypeScript, and shadcn/ui to present the interface, while the C# backend coordinates application requests and work that needs to be performed.</p>
+        </div>
+        <div>
+          <h3 class="subhead">AI and data tiers</h3>
+          <p class="prose">The backend can send suitable requests to an AI provider such as Claude and use the provider's response to select an application action. Supabase and PostgreSQL form the diagram's data tier for persistent application data.</p>
+        </div>
+      </div>
+      <p class="note" style="font-size:12px; margin-top:10px;">Implementation status: this image shows a proposed hosted web architecture. The current code is a .NET console harness connected to Anthropic and an in-process AutoCAD plugin through a local named pipe. Vercel, the pictured web front end, and Supabase/PostgreSQL are not implemented in the current code.</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section__title">Application Workflow</h2>
+      <div class="diagram" style="aspect-ratio:16/9; padding:0; overflow:hidden;">
+        <img src="workflow.jpg" alt="Application workflow from a user prompt through AI action selection and AutoCAD drawing creation" style="width:100%; height:100%; display:block; object-fit:contain;">
+      </div>
+      <ol class="list">
+        <li><strong>Enter a prompt.</strong> The user describes the drawing request in natural language. In the current prototype, the prompt is entered in the .NET console harness; the desktop interface is still planned.</li>
+        <li><strong>Select an action.</strong> The harness sends the prompt and available tool definitions to the model. The model interprets the request and returns either a text response or a structured tool-use request. Currently, the only drawing tool is <code>create_line</code> (will work on the other tools).</li>
+        <li><strong>Route the tool call.</strong> The C# orchestration layer packages the tool name and arguments as a newline-delimited JSON request and sends it over the <code>AutoCadCopilot.Tools</code> named pipe to the plugin running inside AutoCAD.</li>
+        <li><strong>Create the geometry.</strong> The plugin moves execution onto AutoCAD's synchronization context, locks the active drawing, and dispatches the action. For <code>create_line</code>, it creates a line in Model Space inside a database Transaction and returns the entity handle and endpoints.</li>
+        <li><strong>Return the response.</strong> The tool result travels back to the harness and is sent to the model. The model then produces a natural-language reply for the user. A turn can include up to 10 tool-call rounds; omitted Z coordinates default to 0.</li>
+      </ol>
+      <p class="prose" style="margin-top:10px;"><strong>Example pipe request:</strong></p>
+      <pre style="white-space:pre-wrap; overflow-wrap:anywhere; background:var(--color-bg-raised); border:1px solid var(--color-border); padding:10px; font-size:12px;">Request:
+{"tool":"create_line","args":{"start":[0,0],"end":[100,100]}}
+
+Success response:
+{"success":true,"result":{"handle":"&lt;handle&gt;","start":[0,0,0],"end":[100,100,0]},"error":null}</pre>
     </section>
 
     <!-- SECTION 8: Demo video -->
-    <!-- <section class="section">
+    <section class="section">
       <h2 class="section__title">Demo Video</h2>
       <div class="diagram" style="aspect-ratio:16/9; padding:0; overflow:hidden;">
         <video controls preload="metadata" style="width:100%; height:100%; display:block; background:#000;">
@@ -329,8 +241,8 @@
           Your browser does not support the video tag.
         </video>
       </div>
-      <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* Recorded walkthrough of the current prototype: connecting Claude Desktop to the AutoCAD MCP server and creating geometry via server.py.</p>
-    </section> -->
+      <p class="prose" style="font-style: italic; margin-top: 10px; font-size: 12px;">* Recorded walkthrough of the current prototype: connecting our C# BE server to the AutoCAD and creating geometry.</p>
+    </section>
 
     <!-- SECTION 9: Technology decision record -->
     <!-- <section class="section">
